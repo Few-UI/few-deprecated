@@ -1,0 +1,7 @@
+*.log*
+*.orig
+*.tgz
+node_modules
+coverage
+out
+dist

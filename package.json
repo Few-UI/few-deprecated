@@ -1,0 +1,29 @@
+{
+    "name": "few",
+    "version": "1.0.0",
+    "description": "few ui",
+    "main": "index.js",
+    "scripts": {
+        "test": "jest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Few-UI/few.git"
+    },
+    "keywords": [
+        "few"
+    ],
+    "author": "jesse23",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Few-UI/few/issues"
+    },
+    "dependencies": {
+        "jest": "^24.9.0",
+        "@babel/preset-env": "^7.9.0",
+        "eslint": "6.3.0",
+        "babel-eslint": "10.0.3",
+        "lodash": "4.17.15"
+    },
+    "homepage": "https://github.com/Few-UI/few#readme"
+}
