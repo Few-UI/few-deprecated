@@ -67,6 +67,7 @@ export interface Dispatcher {
  * component instance
  */
 export interface Component {
+    view: Function
     data: DataStore,
     actions: Action,
     dispatch: Function
