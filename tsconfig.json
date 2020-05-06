@@ -1,11 +1,13 @@
+// https://stackoverflow.com/questions/47729344/how-to-share-code-between-typescript-projects
 {
     "compilerOptions": {
         "outDir": "public",
+        "composite": true,
         "allowJs": true,
         "esModuleInterop": true,
         "target": "es5",
         "jsx": "react",
-        "sourceMap": true
+        "sourceMap": true,
     },
     "include": [
         "src/**/*", "test/**/*"
