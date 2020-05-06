@@ -45,7 +45,7 @@ export type DataStoreCompound = Compound<Primitive | Function>;
 
 export interface PathContext {
     scope: string,
-    path: string
+    path: string | undefined
 }
 
 
@@ -60,14 +60,14 @@ export interface Action {
  * take action as input and execute the dispatch
  */
 export interface Dispatcher {
-    (action: any): void
+    ( action: any ): void
 }
 
 /**
  * component instance
  */
 export interface Component {
-    view: Function
+    // view: Function
     data: DataStore,
     actions: Action,
     dispatch: Function
@@ -77,7 +77,7 @@ export interface Component {
  * view template as fn(component)
  */
 export interface ViewTemplate {
-    (component: Component): JSX.Element
+    ( component: Component ): JSX.Element
 }
 
 
@@ -96,6 +96,6 @@ export interface ComponentDefinition {
  * function that compile component definition to component
  */
 export interface ComponentFactory {
-    (componentDef: ComponentDefinition): React.FunctionComponent;
+    ( componentDef: ComponentDefinition ): React.FunctionComponent;
 }
 

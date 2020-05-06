@@ -4,10 +4,13 @@
         "outDir": "public",
         "composite": true,
         "allowJs": true,
-        "esModuleInterop": true,
         "target": "es5",
         "jsx": "react",
         "sourceMap": true,
+        "strict": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "removeComments": true
     },
     "include": [
         "src/**/*", "test/**/*"

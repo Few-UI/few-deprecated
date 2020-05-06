@@ -160,8 +160,7 @@ module.exports = {
         'template-tag-spacing': [ 'error', 'always' ],
         'unicode-bom': [ 'error', 'never' ],
         'use-isnan': 2,
-        // 'valid-jsdoc': [ 'warn', { 'requireReturn': false, 'requireReturnType': true, 'requireParamDescription': true, 'requireReturnDescription': true, 'matchDescription': ".+" } ],
-        'valid-jsdoc': [ 'warn', { 'requireReturn': false, 'requireReturnType': true, 'requireParamDescription': true, 'requireReturnDescription': true } ],
+        'valid-jsdoc': [ 'warn', { 'requireReturn': false, 'requireReturnType': false, 'requireParamType': false, 'requireParamDescription': true, 'requireReturnDescription': true } ],
         'valid-typeof': 2,
         'wrap-regex': 0
     },
@@ -191,6 +190,11 @@ module.exports = {
         ecmaFeatures: {
             jsx: true,
             impliedStrict: false
+        }
+    },
+    settings: {
+        jsdoc: {
+            mode: 'typescript'
         }
     }
 };
