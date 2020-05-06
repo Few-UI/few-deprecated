@@ -4,6 +4,7 @@ import React from 'react';
  * https://github.com/SunshowerC/blog/issues/7
  * https://github.com/microsoft/TypeScript/issues/1897
  * https://github.com/basarat/typescript-book/blob/master/docs/styleguide/styleguide.md#type
+ * https://stackoverflow.com/questions/53718296/index-d-ts-vs-normal-type-file
  *
  * we only allow name-value pair for now
  */
