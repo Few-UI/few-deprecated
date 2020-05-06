@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "outDir": "public",
+        "allowJs": true,
+        "esModuleInterop": true,
+        "target": "es5",
+        "jsx": "react",
+        "sourceMap": true
+    },
+    "include": [
+        "src/**/*", "test/**/*"
+    ],
+    "exclude": [ "node_modules", "**/*.test.ts" ]
+}
