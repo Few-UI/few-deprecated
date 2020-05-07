@@ -66,8 +66,8 @@ export const evalExpression = (
     expr: string,
     scope: DataStore,
     ignoreError = false,
-    applyObject?: Record<string, any>
-): any => {
+    applyObject?: object
+): unknown => {
     const names = scope ? Object.keys( scope ) : [];
     const vals = scope ? Object.values( scope ) : [];
     try {
@@ -104,8 +104,8 @@ export const parseView = ( input: string ): Node => {
  * @param boundArgs arguments will be bound at then end of the function interface
  * @returns new function with bindings
  */
-export const bindTrailingArgs = ( fn: Function, ...boundArgs: any ): Function => {
-    return function( ...args: any ) {
+export const bindTrailingArgs = ( fn: Function, ...boundArgs: unknown[] ): Function => {
+    return function( ...args: unknown[] ) : unknown {
         return fn( ...args, ...boundArgs );
     };
 };
@@ -116,7 +116,8 @@ export const bindTrailingArgs = ( fn: Function, ...boundArgs: any ): Function =>
  * @param obj - function to evaluate after loading the dependencies.
  * @returns ES5 module object
  */
-export const interopES6Default = ( obj: any ): any => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const interopES6Default = ( obj: any  ): any => {
     return obj && obj.__esModule && obj.default ? obj.default : obj;
 };
 
@@ -206,13 +207,13 @@ export const printDomNode = ( node: Node ): string => {
 export const httpGet = ( theUrl: string ): Promise<string> => {
     return new Promise( ( resolve, reject ) => {
         const xmlHttp = new XMLHttpRequest();
-        xmlHttp.onreadystatechange = function() {
+        xmlHttp.onreadystatechange = function() : void {
             if ( xmlHttp.readyState === 4 && xmlHttp.status === 200 ) {
                 resolve( xmlHttp.responseText );
             }
         };
 
-        xmlHttp.onerror = function( e ) {
+        xmlHttp.onerror = function( e ): void {
             reject( e );
         };
 
@@ -273,14 +274,14 @@ export const parseDataPath = ( pathStr: string ): PathContext => {
  * @param val input value
  * @returns true if input is number or string
  */
-export const isPrimitive = ( val: any ): boolean => {
+export const isPrimitive = ( val: unknown ): boolean => {
     const type = typeof val;
     return type === 'number' || type === 'string' || type === 'boolean';
 };
 
 export const isArray = Array.isArray;
 
-export const isObject = ( val: any ) => val && !isPrimitive( val ) && !isArray( val );
+export const isObject = ( val: unknown ) : boolean => val && !isPrimitive( val ) && !isArray( val );
 
 //////////////////////////////////////////////////////////////
 // data getter / setter
@@ -296,7 +297,7 @@ export const isObject = ( val: any ) => val && !isPrimitive( val ) && !isArray( 
 export const getValue = ( scope: DataStore, path: string ): DataStore => {
     // return _.get( scope, expr );
     // TODO: when the scope has .xxx, evalFunction will fail but _.get still success
-    return evalExpression( path, scope, true );
+    return evalExpression( path, scope, true ) as DataStore;
 };
 
 /**
@@ -307,10 +308,10 @@ export const getValue = ( scope: DataStore, path: string ): DataStore => {
  * @param value value to specific path
  * @returns true if value is different with orignal (and successfully set).
  */
-export const setValue = ( data: DataStore, path: string, value: any ): boolean => {
+export const setValue = ( scope: DataStore, path: string, value: unknown ): boolean => {
     // do immutable comparison only
-    if ( getValue( data, path ) !== value ) {
-        lodashSet( data, path, value );
+    if ( getValue( scope, path ) !== value ) {
+        lodashSet( scope, path, value );
         return true;
     }
     return false;
