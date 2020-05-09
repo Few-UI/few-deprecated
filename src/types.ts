@@ -52,7 +52,7 @@ export interface PathContext {
 /**
  * action as function call back. No return value as dispatch
  */
-export interface Action {
+export interface ActionDefinition {
     [key: string]: { (): void };
 }
 
@@ -60,7 +60,13 @@ export interface Action {
  * take action as input and execute the dispatch
  */
 export interface Dispatcher {
-    ( action: any ): void;
+    ( action: Action ): void;
+}
+
+export interface Action {
+    scope?: string;
+    path?:  string;
+    value:  DataStoreCompound;
 }
 
 /**
@@ -70,7 +76,7 @@ export interface Component {
     // view: Function
     data: DataStore;
     dispatch: Function;
-    actions?: Action;
+    actions?: ActionDefinition;
 }
 
 /**
@@ -88,7 +94,7 @@ export interface ComponentDefinition {
     view: ViewTemplate;
     data: { (): DataStore };
     actions: {
-        [key: string]: any;
+        [key: string]: Function | DataStore;
     };
 }
 
