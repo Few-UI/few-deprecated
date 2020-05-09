@@ -105,7 +105,7 @@ export const parseView = ( input: string ): Node => {
  * @returns new function with bindings
  */
 export const bindTrailingArgs = ( fn: Function, ...boundArgs: unknown[] ): Function => {
-    return function( ...args: unknown[] ) : unknown {
+    return function( ...args: unknown[] ): unknown {
         return fn( ...args, ...boundArgs );
     };
 };
@@ -207,7 +207,7 @@ export const printDomNode = ( node: Node ): string => {
 export const httpGet = ( theUrl: string ): Promise<string> => {
     return new Promise( ( resolve, reject ) => {
         const xmlHttp = new XMLHttpRequest();
-        xmlHttp.onreadystatechange = function() : void {
+        xmlHttp.onreadystatechange = function(): void {
             if ( xmlHttp.readyState === 4 && xmlHttp.status === 200 ) {
                 resolve( xmlHttp.responseText );
             }
@@ -229,7 +229,7 @@ export const httpGet = ( theUrl: string ): Promise<string> => {
  * @returns Base URL for the current application's root 'document' without any query or location attributes
  *          and (if otherwise valid) with a trailing '/' assured.
  */
-export const getBaseURL: { (): string, _baseURL?: string } = () => {
+export const getBaseURL: { (): string; _baseURL?: string } = () => {
     if ( !getBaseURL._baseURL ) {
         // strip 'index.html' from end of pathname if present
         const location = window.location;
@@ -281,7 +281,7 @@ export const isPrimitive = ( val: unknown ): boolean => {
 
 export const isArray = Array.isArray;
 
-export const isObject = ( val: unknown ) : boolean => val && !isPrimitive( val ) && !isArray( val );
+export const isObject = ( val: unknown ): boolean => val && !isPrimitive( val ) && !isArray( val );
 
 //////////////////////////////////////////////////////////////
 // data getter / setter

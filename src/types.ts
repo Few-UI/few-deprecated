@@ -23,7 +23,7 @@ type Compound<T> = Map<T> | Map<T>[] | T[]
  * abstract type to present key-value pair
  */
 interface Map<T> {
-    [key: string]: T | Compound<T>
+    [key: string]: T | Compound<T>;
 }
 
 /**
@@ -44,8 +44,8 @@ export type DataStoreCompound = Compound<Primitive | Function>;
 /////////////////////////////////
 
 export interface PathContext {
-    scope: string,
-    path: string | undefined
+    scope: string;
+    path: string | undefined;
 }
 
 
@@ -53,14 +53,14 @@ export interface PathContext {
  * action as function call back. No return value as dispatch
  */
 export interface Action {
-    [key: string]: { (): void }
+    [key: string]: { (): void };
 }
 
 /**
  * take action as input and execute the dispatch
  */
 export interface Dispatcher {
-    ( action: any ): void
+    ( action: any ): void;
 }
 
 /**
@@ -68,16 +68,16 @@ export interface Dispatcher {
  */
 export interface Component {
     // view: Function
-    data: DataStore,
-    actions: Action,
-    dispatch: Function
+    data: DataStore;
+    dispatch: Function;
+    actions?: Action;
 }
 
 /**
  * view template as fn(component)
  */
 export interface ViewTemplate {
-    ( component: Component ): JSX.Element
+    ( component: Component ): JSX.Element;
 }
 
 
@@ -85,11 +85,11 @@ export interface ViewTemplate {
  * comonent definition with 'view', 'data' and 'action'
  */
 export interface ComponentDefinition {
-    view: ViewTemplate,
-    data: { (): DataStore },
+    view: ViewTemplate;
+    data: { (): DataStore };
     actions: {
-        [key: string]: any
-    }
+        [key: string]: any;
+    };
 }
 
 /**
