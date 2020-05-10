@@ -10,8 +10,7 @@ import {
 
 import {
     getValue,
-    parseDataPath,
-    isObject
+    parseDataPath
 } from './utils';
 
 

@@ -4,8 +4,8 @@ import lodashSet from 'lodash/set';
 import {
     DataDef,
     DataStore,
-    DataStoreCompound,
-    PathContext
+    PathContext,
+    DataStoreValue
 } from './types';
 
 export const BaseIndent = '  ';
@@ -346,7 +346,7 @@ export const cloneJson = ( input: DataDef ): DataDef => {
  * @param scope store object
  * @param level current level in the recursive evaluation
  */
-const evalDataDefinitionInternal = ( input: DataStoreCompound, scope: DataStore, level: number ): void => {
+const evalDataDefinitionInternal = ( input: DataStoreValue, scope: DataStore, level: number ): void => {
     // TODO: wired typescript issue in strict mode, will try to fix later
     if ( Array.isArray( input ) ) {
         for ( const key in input ) {
@@ -360,7 +360,7 @@ const evalDataDefinitionInternal = ( input: DataStoreCompound, scope: DataStore,
                 evalDataDefinitionInternal( input, scope, level + 1 );
             }
         }
-    } else {
+    } else if( typeof input === 'object' ) {
         for ( const key in input ) {
             const value = input[key];
             if ( typeof value === 'string' ) {

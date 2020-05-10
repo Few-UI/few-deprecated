@@ -1,4 +1,5 @@
 import React from 'react';
+import lodashSet from 'lodash/set';
 
 import {
     Dispatcher,
@@ -10,7 +11,6 @@ import {
 
 
 import {
-    setValue,
     getValue,
     evalDataDefinition,
     parseDataPath
@@ -23,7 +23,7 @@ import {
  * @returns patch object that patch to scope
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const processOutputData = ( output: { [key: string]: string }, result: any ): DataStore => {
+const processOutputData = ( output: { [key: string]: string }, result: any ): DataStore | undefined => {
     if ( output ) {
         const res = {};
         for ( const vmPath in output ) {
@@ -54,15 +54,15 @@ const createAction = ( actionDef: ActionDefinition, component: Component ) => ()
     // https://stackoverflow.com/questions/37006008/typescript-index-signature-is-missing-in-type
     // - Put component directly has the risk that people can say component.myAttr = newValue.
     // - {...component} stops it
-    const input = evalDataDefinition( actionDef.input, { ...component } );
-
     // TODO: match name with function parameters
     // https://stackoverflow.com/questions/1007981/how-to-get-function-parameter-names-values-dynamically
-    const vals = actionDef.input ? Object.values( input ) : [];
+    const vals = actionDef.input ? Object.values( evalDataDefinition( actionDef.input, { ...component } ) ) : [];
 
     const funcRes = actionFunc.apply( actionDef.deps, vals );
 
-    dispatch( { value: processOutputData( actionDef.output, funcRes ) } );
+    if( actionDef.output ) {
+        dispatch( { value: processOutputData( actionDef.output, funcRes ) } );
+    }
 };
 
 /**
@@ -87,11 +87,13 @@ export const createComponent: ComponentFactory = componentDef => (): JSX.Element
     const dispatch = composeDispatch( {
         data: ( action ) => {
             const patch = action.value;
-            Object.entries( patch ).forEach( ( [ key, value ] ) => {
-                const { path } = parseDataPath( key );
-                setValue( data, path, value );
-                setData( { ...data } );
-            } );
+            if( typeof patch === 'object' ) {
+                Object.entries( patch ).forEach( ( [ key, value ] ) => {
+                    const { path } = parseDataPath( key );
+                    lodashSet( data, path || '', value );
+                    setData( { ...data } );
+                } );
+            }
         }
     } );
 
