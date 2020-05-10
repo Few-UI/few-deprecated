@@ -12,34 +12,41 @@ import React from 'react';
 /**
  * primitive type in store
  */
-type Primitive = undefined | null | boolean | number | string;
+type Primitive = undefined | boolean | number | string;
 
 /**
  * abstract type to present compound
  */
-type Compound<T> = Map<T> | Map<T>[] | T[]
+type Compound<T> = DataMap<T> | DataMap<T>[] | T[]
+
+/**
+ * abstract type to value
+ */
+type Value<T> = T | Compound<T>;
 
 /**
  * abstract type to present key-value pair
  */
-interface Map<T> {
-    [key: string]: T | Compound<T>;
+export interface Map<T> {
+    [key: string]: Value<T>;
 }
+
+type DataMap<T> = {} & Map<T>;
 
 /**
  * object that can be stringnify and parse back
  */
-export type DataDef = Map<Primitive>;
+export type DataDef = DataMap<Primitive>;
 
 /**
  * data store
  */
-export type DataStore = Map<Primitive | Function>;
+export type DataStore = DataMap<Primitive | Function>;
 
 /**
  * compound object for store
  */
-export type DataStoreCompound = Compound<Primitive | Function>;
+export type DataStoreValue = Value<Primitive | Function>;
 
 /////////////////////////////////
 
@@ -73,7 +80,7 @@ export interface Dispatcher {
 export interface Action {
     scope?: string;
     path?:  string;
-    value:  DataStoreCompound;
+    value:  DataStoreValue;
 }
 
 /**

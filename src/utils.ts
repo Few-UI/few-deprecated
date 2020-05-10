@@ -308,6 +308,7 @@ export const getValue = ( scope: DataStore, path: string ): DataStore => {
  * @param value value to specific path
  * @returns true if value is different with orignal (and successfully set).
  */
+/*
 export const setValue = ( scope: DataStore, path: string, value: unknown ): boolean => {
     // do immutable comparison only
     if ( getValue( scope, path ) !== value ) {
@@ -316,6 +317,7 @@ export const setValue = ( scope: DataStore, path: string, value: unknown ): bool
     }
     return false;
 };
+*/
 
 /**
  * parse expr ${aa.bb}} to get aa.bb
