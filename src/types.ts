@@ -12,17 +12,13 @@ import React from 'react';
 /**
  * primitive type in store
  */
-type Primitive = undefined | boolean | number | string;
+type Primitive = boolean | number | string;
 
-/**
- * abstract type to present compound
- */
-type Compound<T> = DataMap<T> | DataMap<T>[] | T[]
 
 /**
  * abstract type to value
  */
-type Value<T> = T | Compound<T>;
+type Value<T> = T | T[] | Store<T> | Store<T>[];
 
 /**
  * abstract type to present key-value pair
@@ -31,20 +27,23 @@ export interface Map<T> {
     [key: string]: Value<T>;
 }
 
-type DataMap<T> = {} & Map<T>;
+/**
+ * Store = Map + {}
+ */
+type Store<T> = {} & Map<T>;
 
 /**
  * object that can be stringnify and parse back
  */
-export type DataDef = DataMap<Primitive>;
+export type DataDef = Store<Primitive>;
 
 /**
  * data store
  */
-export type DataStore = DataMap<Primitive | Function>;
+export type DataStore = Store<Primitive | Function>;
 
 /**
- * compound object for store
+ * data store value
  */
 export type DataStoreValue = Value<Primitive | Function>;
 
